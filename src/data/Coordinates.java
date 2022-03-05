@@ -9,13 +9,7 @@ public class Coordinates {
         this.y = y;
     }
 
-    public Long getX() {
-        return x;
-    }
 
-    public Float getY() {
-        return y;
-    }
 
 
     @Override

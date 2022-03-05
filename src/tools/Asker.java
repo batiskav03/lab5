@@ -1,15 +1,12 @@
 package tools;
-
 import Exception.*;
 import data.*;
-
-import java.util.Locale;
 import java.util.Scanner;
 
 
 
 public class Asker {
-    private Scanner scanner;
+    private final Scanner scanner;
     public Asker(Scanner scanner) {
         this.scanner = scanner;
     }
@@ -27,12 +24,14 @@ public class Asker {
 
         return name;
     }
+
     public Coordinates askCoordinates() {
         Coordinates coordinates;
         System.out.println("Enter coordinates:");
         coordinates = new Coordinates(askX(),askY());
         return coordinates;
     }
+
     public long askX() {
         String strX;
         long x;
@@ -41,6 +40,7 @@ public class Asker {
         x = Long.parseLong(strX);
         return x;
     }
+
     public float askY(){
         String strY;
         float y;
@@ -49,6 +49,7 @@ public class Asker {
         y = Float.parseFloat(strY);
         return y;
     }
+
     public Integer askAge(){
         String age;
         int askage;
@@ -57,6 +58,7 @@ public class Asker {
         askage = Integer.parseInt(age);
         return askage;
     }
+
     public Color askColor(){
         String strColor;
         Color color;
@@ -66,6 +68,7 @@ public class Asker {
         color = Color.valueOf(str);
         return color;
     }
+
     public DragonType askDragonType(){
         String strType;
         DragonType dragonType;
@@ -75,6 +78,7 @@ public class Asker {
         dragonType = DragonType.valueOf(str);
         return dragonType;
     }
+
     public DragonCharacter askDragonCharacter(){
         String strType;
         DragonCharacter dragonCharacter;
@@ -84,12 +88,14 @@ public class Asker {
         dragonCharacter = DragonCharacter.valueOf(str);
         return dragonCharacter;
     }
+
     public DragonHead askDragonHead(){
         DragonHead dragonhead;
         System.out.println("Enter eyes and tooth count of dragon:");
         dragonhead = new DragonHead(askEyesCount(),askToothCount());
         return dragonhead;
     }
+
     public float askToothCount(){
         String strTooth;
         float tooth;
@@ -98,6 +104,7 @@ public class Asker {
         tooth = Float.parseFloat(strTooth);
         return tooth;
     }
+
     public long askEyesCount() {
         String strEyes;
         long eyes;
@@ -106,4 +113,5 @@ public class Asker {
         eyes = Long.parseLong(strEyes);
         return eyes;
     }
+
 }

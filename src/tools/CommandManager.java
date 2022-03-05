@@ -1,12 +1,12 @@
 package tools;
 
 import data.Color;
-import data.Dragon;
+
 
 import java.util.Scanner;
 
 public class CommandManager {
-    private CollectionManager manager;
+    private final CollectionManager manager;
     private String userCommand = "";
     private String[] finalCommand;
 
@@ -64,11 +64,13 @@ public class CommandManager {
                 manager.filteredByColorCommand(Color.valueOf(finalCommand[0]));
                 break;
             case "max_date":
-                manager.MaxByCreatinDateCommand();
+                manager.MaxByCreationDateCommand();
                 break;
             case "exit":
                 System.out.println("Выход выполнен успешно");
                 break;
+            case "execute_script":
+                manager.executeScriptCommand(finalCommand[1]);
             default:
                 System.out.println("Comannd not found. Enter \"help\". ");
         }

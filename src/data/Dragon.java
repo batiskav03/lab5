@@ -15,12 +15,6 @@ public class Dragon {
     private DragonCharacter character; //Поле может быть null
     private DragonHead head;
 
-    public Dragon(){
-    }
-    public Dragon(Color color){
-        this.color = color;
-        this.creationDate = new Date();
-    }
 
     public Dragon(String name, Coordinates coordinates, Date creationDate, Integer age, Color color, DragonType type, DragonCharacter character, DragonHead head) {
         this.id = getRandomID();
@@ -53,73 +47,12 @@ public class Dragon {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Coordinates getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(Coordinates coordinates) {
-        this.coordinates = coordinates;
-    }
-
     public Date getCreationDate() {
         return creationDate;
-    }
-
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public Integer getAge() {
-        return age;
-    }
-
-    public void setAge(Integer age) {
-        this.age = age;
     }
 
     public Color getColor() {
         return color;
     }
-
-    public void setColor(Color color) {
-        this.color = color;
-    }
-
-    public DragonType getType() {
-        return type;
-    }
-
-    public void setType(DragonType type) {
-        this.type = type;
-    }
-
-    public DragonCharacter getCharacter() {
-        return character;
-    }
-
-    public void setCharacter(DragonCharacter character) {
-        this.character = character;
-    }
-
-    public DragonHead getHead() {
-        return head;
-    }
-
-    public void setHead(DragonHead head) {
-        this.head = head;
-    }
-
 
 }

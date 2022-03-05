@@ -3,9 +3,10 @@ package tools;
 import data.Color;
 import data.Dragon;
 
+import java.io.*;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
+
 
 public class CollectionManager {
     private LinkedHashMap<Integer, Dragon> dragonsCollection;
@@ -35,6 +36,7 @@ public class CollectionManager {
         helpCommands.put("filter_color {color} :", "Вывести элементы, значение поля color которых равно заданному");
         helpCommands.put("print_ascending", "Вывести элементы коллекции в порядке возрастания");
     }
+
     public static Integer getRandomID(){
         return idCounter.getAndIncrement();
     }
@@ -110,7 +112,9 @@ public class CollectionManager {
         else {
             history.addFirst("update_id");
         }
+
         System.out.println("------------------------");
+
     }
 
     public void removeKeyCommand(Integer key){
@@ -159,6 +163,7 @@ public class CollectionManager {
 
 
     }
+
     public void filteredByColorCommand(Color color){
         for (Map.Entry<Integer, Dragon> entry : dragonsCollection.entrySet()) {
             if (entry.getValue().getColor().equals(color)) {
@@ -168,6 +173,7 @@ public class CollectionManager {
         }
         System.out.println("------------------------");
     }
+
     public void removeLowerKeyCommand(Integer key) {
         Iterator<Map.Entry<Integer,Dragon>> i = dragonsCollection.entrySet().iterator();
         while (i.hasNext()) {
@@ -179,7 +185,8 @@ public class CollectionManager {
         System.out.println("------------------------");
 
     }
-    public void MaxByCreatinDateCommand() {
+
+    public void MaxByCreationDateCommand() {
         long maxdatemls = 0;
         Integer key = null;
         for (Map.Entry<Integer, Dragon> entry : dragonsCollection.entrySet()) {
@@ -192,9 +199,70 @@ public class CollectionManager {
         System.out.println("------------------------");
     }
 
+    public void executeScriptCommand(String file_name) {
+        String command;
+        String[] finalCommand;
+        try{
+            System.out.println( file_name + "reading has started");
+            BufferedReader inputStreamReader = new BufferedReader(new InputStreamReader(new FileInputStream(file_name)));
+            command = inputStreamReader.readLine();
+            while (command != null) {
+                finalCommand = command.trim().split(" ",2);
+                System.out.println("The command is being processed: " + finalCommand[0]);
+                switch (finalCommand[0]) {
+                    case "show":
+                        showCommand();
+                        break;
+                    case "help":
+                        helpCommand();
+                        break;
+                    case "info":
+                        infoCommand();
+                        break;
+                    case "clear":
+                        clearCommand();
+                        break;
+                    case "history":
+                        historyCommand();
+                        break;
+                    case "insert":
+                        insertNullCommand(Integer.parseInt(finalCommand[1]));
+                        break;
+                    case "update":
+                        uptadeIDCommand(Integer.parseInt(finalCommand[1]));
+                        break;
+                    case "remove":
+                        removeKeyCommand(Integer.parseInt(finalCommand[1]));
+                        break;
+                    case "rmv_greater":
+                        removeGreaterKeyCommand(Integer.parseInt(finalCommand[1]));
+                        break;
+                    case "rmv_lower":
+                        removeLowerKeyCommand(Integer.parseInt(finalCommand[1]));
+                        break;
+                    case "filter_color":
+                        filteredByColorCommand(Color.valueOf(finalCommand[0]));
+                        break;
+                    case "max_date":
+                        MaxByCreationDateCommand();
+                        break;
+                    case "exit":
+                        System.out.println("Выход выполнен успешно");
+                        break;
+                    default:
+                        System.out.println("Comannd not found. Enter \"help\". ");      // нужно сюда еще пару методов засунуть + эксепшен с реверсивным вызовом файла.
+
+            }
+            command = inputStreamReader.readLine();
+        }
 
 
-
+    } catch (FileNotFoundException e) {
+        System.out.println("File doesn't exist");
+    } catch (IOException e) {
+            System.out.println("Reading is not possible");
+        }
+    }
 
 
 }
