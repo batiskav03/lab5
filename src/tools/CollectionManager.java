@@ -42,6 +42,8 @@ public class CollectionManager {
     }
 
     public void showCommand() {
+        dragonsCollection.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(Map.Entry::getValue);
+
         for (Map.Entry<Integer, Dragon> entry : dragonsCollection.entrySet()) {
             System.out.println(entry.toString());
         }
@@ -71,8 +73,14 @@ public class CollectionManager {
     }
 
     public void insertNullCommand(Integer key){
-        Dragon a = new Dragon(asker.askName(),asker.askCoordinates(), new Date(), asker.askAge(), asker.askColor(), asker.askDragonType(), asker.askDragonCharacter(), asker.askDragonHead());
-        dragonsCollection.put(key, a);
+        try {
+            Dragon a = new Dragon(asker.askName(), asker.askCoordinates(), new Date(), asker.askAge(), asker.askColor(), asker.askDragonType(), asker.askDragonCharacter(), asker.askDragonHead());
+            dragonsCollection.put(key, a);
+        } catch (NoSuchElementException e) {
+            System.out.println("Collection is empty");
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid value");
+        }
         if (history.size() == 16) {
             history.removeLast();
             history.addFirst("insert null");
@@ -105,6 +113,7 @@ public class CollectionManager {
 
             }
         }
+
         if (history.size() == 16) {
             history.removeLast();
             history.addFirst("update_id ");
@@ -160,8 +169,6 @@ public class CollectionManager {
             }
         }
         System.out.println("------------------------");
-
-
     }
 
     public void filteredByColorCommand(Color color){

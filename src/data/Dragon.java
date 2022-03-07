@@ -4,11 +4,15 @@ import java.util.Date;
 
 import static tools.CollectionManager.getRandomID;
 
-public class Dragon {
+public class Dragon implements Comparable<Dragon> {
     private Integer id; //Поле не может быть null, Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
     private Date creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
+
+    public Integer getAge() {
+        return age;
+    }
     private Integer age; //Значение поля должно быть больше 0, Поле не может быть null
     private Color color; //Поле может быть null
     private DragonType type; //Поле не может быть null
@@ -53,6 +57,11 @@ public class Dragon {
 
     public Color getColor() {
         return color;
+    }
+
+    @Override
+    public int compareTo(Dragon v) {
+        return age - v.age;
     }
 
 }

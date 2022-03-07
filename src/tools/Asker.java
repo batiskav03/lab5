@@ -35,33 +35,82 @@ public class Asker {
     public long askX() {
         String strX;
         long x;
-        System.out.print("x = ");
-        strX = scanner.nextLine().trim();
-        x = Long.parseLong(strX);
+        try {
+            System.out.print("x = ");
+            strX = scanner.nextLine().trim();
+            if (strX.equals("")) throw new ElementMustNotBeEmptyException();
+            x = Long.parseLong(strX);
+        }
+        catch (NumberFormatException ex)
+        {
+            System.out.println("Invalid value");
+            return askX();
+
+        }
+        catch (ElementMustNotBeEmptyException ex)
+        {
+
+            System.out.println(ex.getMessage());
+            return askX();
+
+        }
+
         return x;
     }
 
     public float askY(){
         String strY;
         float y;
-        System.out.print("y = ");
-        strY = scanner.nextLine().trim();
-        y = Float.parseFloat(strY);
+        try {
+            System.out.print("y = ");
+            strY = scanner.nextLine().trim();
+            if (strY.equals("")) throw new ElementMustNotBeEmptyException();
+            y = Float.parseFloat(strY);
+        }
+        catch (NumberFormatException ex)
+        {
+            System.out.println("Invalid value");
+            return askY();
+        }
+        catch (ElementMustNotBeEmptyException ex)
+        {
+            System.out.println(ex.getMessage());
+            return askY();
+        }
+
         return y;
     }
 
     public Integer askAge(){
         String age;
         int askage;
-        System.out.print("Enter age:");
-        age = scanner.nextLine().trim();
-        askage = Integer.parseInt(age);
+        try {
+            System.out.print("Enter age:");
+            age = scanner.nextLine().trim();
+            if (age.equals("")) throw new ElementMustNotBeEmptyException();
+            askage = Integer.parseInt(age);
+            if (askage <= 0) throw new InvalidElementValueException();
+        } catch (NumberFormatException ex)
+        {
+            System.out.println("Invalid value");
+            return askAge();
+        }
+        catch (ElementMustNotBeEmptyException ex)
+        {
+            System.out.println(ex.getMessage());
+            return askAge();
+        } catch (InvalidElementValueException ex) {
+            System.out.println("Age cant be negative");
+            return askAge();
+        }
+
         return askage;
     }
 
     public Color askColor(){
         String strColor;
         Color color;
+
         System.out.print("Choose color (black, yellow or blue):");
         strColor = scanner.nextLine().trim();
         String str = strColor.toUpperCase();
