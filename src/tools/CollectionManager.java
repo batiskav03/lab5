@@ -14,6 +14,7 @@ public class CollectionManager {
     private LinkedList<String> history = new LinkedList<>();
     private Asker asker = new Asker(new Scanner(System.in));
     private static AtomicInteger idCounter = new AtomicInteger();
+    private Date date = new Date();
 
 
     public CollectionManager() {
@@ -43,6 +44,7 @@ public class CollectionManager {
 
     public void showCommand() {
         dragonsCollection.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(Map.Entry::getValue);
+        System.out.println("Date collection:" + date);
 
         for (Map.Entry<Integer, Dragon> entry : dragonsCollection.entrySet()) {
             System.out.println(entry.toString());
