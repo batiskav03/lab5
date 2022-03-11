@@ -1,20 +1,27 @@
 package tools;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import data.Color;
 import data.Dragon;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-public class CollectionManager {
+public class CollectionManager implements ICommandsWithCollection,ICommandsWithoutCollection,ICommandsWithFileAndCollection
+
+{
     private LinkedHashMap<Integer, Dragon> dragonsCollection;
     private HashMap<String, String> helpCommands;
     private LinkedList<String> history = new LinkedList<>();
     private Asker asker = new Asker(new Scanner(System.in));
     private static AtomicInteger idCounter = new AtomicInteger();
     private Date date = new Date();
+
+
 
 
     public CollectionManager() {
@@ -41,14 +48,16 @@ public class CollectionManager {
     public static Integer getRandomID(){
         return idCounter.getAndIncrement();
     }
-
+    @Override
     public void showCommand() {
-        dragonsCollection.entrySet().stream().sorted(Map.Entry.comparingByValue()).forEach(Map.Entry::getValue);
-        System.out.println("Date collection:" + date);
+        System.out.println("Date collection: " + date);
+        List<Dragon> needSort = new ArrayList<Dragon>(dragonsCollection.values());
+        Collections.sort(needSort);
 
-        for (Map.Entry<Integer, Dragon> entry : dragonsCollection.entrySet()) {
-            System.out.println(entry.toString());
+        for (Dragon i : needSort) {
+            System.out.println(i);
         }
+
         if (history.size() == 16) {
             history.removeLast();
             history.addFirst("show");
@@ -59,7 +68,7 @@ public class CollectionManager {
         System.out.println("------------------------");
 
     }
-
+    @Override
     public void helpCommand() {
         for (Map.Entry<String, String> entry : helpCommands.entrySet()) {
             System.out.println(entry);
@@ -73,7 +82,7 @@ public class CollectionManager {
         }
         System.out.println("------------------------");
     }
-
+    @Override
     public void insertNullCommand(Integer key){
         try {
             Dragon a = new Dragon(asker.askName(), asker.askCoordinates(), new Date(), asker.askAge(), asker.askColor(), asker.askDragonType(), asker.askDragonCharacter(), asker.askDragonHead());
@@ -93,7 +102,7 @@ public class CollectionManager {
 
 
     }
-
+    @Override
     public void infoCommand(){
         System.out.println("Count of element in collection := " + dragonsCollection.size());
         if (history.size() == 16) {
@@ -106,13 +115,12 @@ public class CollectionManager {
         System.out.println("------------------------");
                                                                               // ** need update, cause this is not all information
     }
-
-    public void uptadeIDCommand(Integer id) { // ** need Exception
+    @Override
+    public void updateIDCommand(Integer id) { // ** need Exception
         for (Map.Entry<Integer, Dragon> entry : dragonsCollection.entrySet()) {
             if (entry.getValue().getId().equals(id)) {
                 System.out.println("Update element:");
                 dragonsCollection.put(entry.getKey(),new Dragon(asker.askName(),asker.askCoordinates(), new Date(), asker.askAge(), asker.askColor(), asker.askDragonType(), asker.askDragonCharacter(), asker.askDragonHead()));
-
             }
         }
 
@@ -127,7 +135,7 @@ public class CollectionManager {
         System.out.println("------------------------");
 
     }
-
+    @Override
     public void removeKeyCommand(Integer key){
         dragonsCollection.remove(key);
         if (history.size() == 16) {
@@ -139,7 +147,7 @@ public class CollectionManager {
         }
         System.out.println("------------------------");
     }
-
+    @Override
     public void clearCommand(){
         dragonsCollection.clear();
         if (history.size() == 16) {
@@ -151,7 +159,7 @@ public class CollectionManager {
         }
         System.out.println("------------------------");
     }
-
+    @Override
     public void historyCommand(){
         int i = 0;
         System.out.println("The last five commands:");
@@ -161,7 +169,7 @@ public class CollectionManager {
         }
         System.out.println("------------------------");
     }
-
+    @Override
     public void removeGreaterKeyCommand(Integer key){
         Iterator<Map.Entry<Integer,Dragon>> i = dragonsCollection.entrySet().iterator();
         while (i.hasNext()) {
@@ -172,7 +180,7 @@ public class CollectionManager {
         }
         System.out.println("------------------------");
     }
-
+    @Override
     public void filteredByColorCommand(Color color){
         for (Map.Entry<Integer, Dragon> entry : dragonsCollection.entrySet()) {
             if (entry.getValue().getColor().equals(color)) {
@@ -182,7 +190,7 @@ public class CollectionManager {
         }
         System.out.println("------------------------");
     }
-
+    @Override
     public void removeLowerKeyCommand(Integer key) {
         Iterator<Map.Entry<Integer,Dragon>> i = dragonsCollection.entrySet().iterator();
         while (i.hasNext()) {
@@ -194,8 +202,8 @@ public class CollectionManager {
         System.out.println("------------------------");
 
     }
-
-    public void MaxByCreationDateCommand() {
+    @Override
+    public void maxByCreationDateCommand() {
         long maxdatemls = 0;
         Integer key = null;
         for (Map.Entry<Integer, Dragon> entry : dragonsCollection.entrySet()) {
@@ -207,7 +215,24 @@ public class CollectionManager {
         System.out.println(dragonsCollection.get(key));
         System.out.println("------------------------");
     }
+    @Override
+    public void printAscendingCommand() {
+        Map<Integer, Dragon> treeMap = new TreeMap<Integer, Dragon>(dragonsCollection);
+        for (Map.Entry<Integer, Dragon> entry : treeMap.entrySet()) {
+            System.out.println(entry);
+        }
+    }
 
+    @Override
+    public void saveCommand()  {
+        JsonProcessing json = new JsonProcessing();
+        try {
+            json.saveCollection(dragonsCollection);
+        } catch (IOException ex) {
+            ex.getMessage();
+        }
+    }
+    @Override
     public void executeScriptCommand(String file_name) {
         String command;
         String[] finalCommand;
@@ -238,7 +263,7 @@ public class CollectionManager {
                         insertNullCommand(Integer.parseInt(finalCommand[1]));
                         break;
                     case "update":
-                        uptadeIDCommand(Integer.parseInt(finalCommand[1]));
+                        updateIDCommand(Integer.parseInt(finalCommand[1]));
                         break;
                     case "remove":
                         removeKeyCommand(Integer.parseInt(finalCommand[1]));
@@ -253,7 +278,7 @@ public class CollectionManager {
                         filteredByColorCommand(Color.valueOf(finalCommand[0]));
                         break;
                     case "max_date":
-                        MaxByCreationDateCommand();
+                        maxByCreationDateCommand();
                         break;
                     case "exit":
                         System.out.println("Выход выполнен успешно");

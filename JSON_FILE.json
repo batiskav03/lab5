@@ -1,0 +1,36 @@
+{
+  "1": {
+    "id": 0,
+    "name": "lox",
+    "coordinates": {
+      "x": 1,
+      "y": 2.0
+    },
+    "creationDate": "Mar 11, 2022 9:54:51 PM",
+    "age": 15,
+    "color": "BLUE",
+    "type": "AIR",
+    "character": "GOOD",
+    "head": {
+      "eyesCount": 1,
+      "toothCount": 5.0
+    }
+  },
+  "2": {
+    "id": 1,
+    "name": "pidoras",
+    "coordinates": {
+      "x": 1,
+      "y": 2.0
+    },
+    "creationDate": "Mar 11, 2022 9:56:22 PM",
+    "age": 15,
+    "color": "BLUE",
+    "type": "AIR",
+    "character": "EVIL",
+    "head": {
+      "eyesCount": 15,
+      "toothCount": 16.0
+    }
+  }
+}

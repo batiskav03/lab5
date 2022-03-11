@@ -49,7 +49,7 @@ public class CommandManager {
                 manager.insertNullCommand(Integer.parseInt(finalCommand[1]));
                 break;
             case "update":
-                manager.uptadeIDCommand(Integer.parseInt(finalCommand[1]));
+                manager.updateIDCommand(Integer.parseInt(finalCommand[1]));
                 break;
             case "remove":
                 manager.removeKeyCommand(Integer.parseInt(finalCommand[1]));
@@ -64,13 +64,19 @@ public class CommandManager {
                 manager.filteredByColorCommand(Color.valueOf(finalCommand[0]));
                 break;
             case "max_date":
-                manager.MaxByCreationDateCommand();
+                manager.maxByCreationDateCommand();
                 break;
             case "exit":
                 System.out.println("Выход выполнен успешно");
                 break;
             case "execute_script":
                 manager.executeScriptCommand(finalCommand[1]);
+            case "print_ascending":
+                manager.printAscendingCommand();
+                break;
+            case "save":
+                manager.saveCommand();
+                break;
             default:
                 System.out.println("Comannd not found. Enter \"help\". ");
         }

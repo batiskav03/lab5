@@ -6,7 +6,6 @@ public interface ICommandsWithoutCollection {
     void helpCommand();
     void infoCommand();
     void showCommand();
-    void exitCommand();
     void historyCommand();
 
 
