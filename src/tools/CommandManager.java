@@ -67,7 +67,7 @@ public class CommandManager {
                 manager.maxByCreationDateCommand();
                 break;
             case "exit":
-                System.out.println("Выход выполнен успешно");
+                System.out.println("Have a nice day)");
                 break;
             case "execute_script":
                 manager.executeScriptCommand(finalCommand[1]);

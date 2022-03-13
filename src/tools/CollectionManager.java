@@ -1,12 +1,9 @@
 package tools;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import data.Color;
 import data.Dragon;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -18,14 +15,14 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
     private HashMap<String, String> helpCommands;
     private LinkedList<String> history = new LinkedList<>();
     private Asker asker = new Asker(new Scanner(System.in));
-    private static AtomicInteger idCounter = new AtomicInteger();
+    private static int idCounter;
     private Date date = new Date();
 
 
 
 
-    public CollectionManager() {
-        dragonsCollection = new LinkedHashMap<>();
+    public CollectionManager() throws IOException {
+        dragonsCollection = JsonProcessing.readFile();
         helpCommands = new HashMap<>();
         helpCommands.put("help :", "Список команд");
         helpCommands.put("info :", "Информация о коллекции");
@@ -43,10 +40,11 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
         helpCommands.put("max_date :", " Вывести любой объект из коллекции, значение поля creationDate которого является максимальным");
         helpCommands.put("filter_color {color} :", "Вывести элементы, значение поля color которых равно заданному");
         helpCommands.put("print_ascending", "Вывести элементы коллекции в порядке возрастания");
+        idCounter = JsonProcessing.readFile().size();
     }
 
     public static Integer getRandomID(){
-        return idCounter.getAndIncrement();
+        return idCounter++;
     }
     @Override
     public void showCommand() {
@@ -113,7 +111,7 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
             history.addFirst("info");
         }
         System.out.println("------------------------");
-                                                                              // ** need update, cause this is not all information
+
     }
     @Override
     public void updateIDCommand(Integer id) { // ** need Exception
