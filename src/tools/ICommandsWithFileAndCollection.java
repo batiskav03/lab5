@@ -1,6 +1,5 @@
 package tools;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface ICommandsWithFileAndCollection {

@@ -3,13 +3,32 @@ import exception.*;
 import data.*;
 import java.util.Scanner;
 
-
-
+/**
+ * The type Asker.
+ *
+ * @author Калабухов Максим Класс - Спрашивает свойства объекта Dragon
+ */
 public class Asker {
+
+    /**
+     * Свойство - Scanner
+     */
     private final Scanner scanner;
+
+    /**
+     * Instantiates a new Asker.
+     *
+     * @param scanner Scanner
+     */
     public Asker(Scanner scanner) {
         this.scanner = scanner;
     }
+
+    /**
+     * Ask name string.
+     *
+     * @return the string
+     */
     public String askName() {
         String name;
         try{
@@ -25,6 +44,11 @@ public class Asker {
         return name;
     }
 
+    /**
+     * Ask coordinates.
+     *
+     * @return the coordinates
+     */
     public Coordinates askCoordinates() {
         Coordinates coordinates;
         System.out.println("Enter coordinates:");
@@ -32,6 +56,11 @@ public class Asker {
         return coordinates;
     }
 
+    /**
+     * Ask x long.
+     *
+     * @return the long
+     */
     public long askX() {
         String strX;
         long x;
@@ -58,6 +87,11 @@ public class Asker {
         return x;
     }
 
+    /**
+     * Ask y float.
+     *
+     * @return the float
+     */
     public float askY(){
         String strY;
         float y;
@@ -81,6 +115,11 @@ public class Asker {
         return y;
     }
 
+    /**
+     * Ask age integer.
+     *
+     * @return the integer
+     */
     public Integer askAge(){
         String age;
         int askage;
@@ -107,6 +146,11 @@ public class Asker {
         return askage;
     }
 
+    /**
+     * Ask color.
+     *
+     * @return the color
+     */
     public Color askColor(){
         String strColor;
         Color color;
@@ -128,6 +172,11 @@ public class Asker {
         return color;
     }
 
+    /**
+     * Ask dragon type.
+     *
+     * @return the dragon type
+     */
     public DragonType askDragonType(){
         String strType;
         DragonType dragonType;
@@ -148,6 +197,11 @@ public class Asker {
         return dragonType;
     }
 
+    /**
+     * Ask dragon character.
+     *
+     * @return the dragon character
+     */
     public DragonCharacter askDragonCharacter(){
         String strType;
         DragonCharacter dragonCharacter;
@@ -169,6 +223,11 @@ public class Asker {
         return dragonCharacter;
     }
 
+    /**
+     * Ask dragon head.
+     *
+     * @return the dragon head
+     */
     public DragonHead askDragonHead(){
         DragonHead dragonhead;
         System.out.println("Enter eyes and tooth count of dragon:");
@@ -176,6 +235,11 @@ public class Asker {
         return dragonhead;
     }
 
+    /**
+     * Ask tooth count.
+     *
+     * @return the float
+     */
     public float askToothCount(){
         String strTooth;
         float tooth;
@@ -194,6 +258,11 @@ public class Asker {
         return tooth;
     }
 
+    /**
+     * Ask eyes count.
+     *
+     * @return the long
+     */
     public long askEyesCount() {
         String strEyes;
         long eyes;

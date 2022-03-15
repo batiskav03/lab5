@@ -5,22 +5,44 @@ import data.Dragon;
 
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 
-
-public class CollectionManager implements ICommandsWithCollection,ICommandsWithoutCollection,ICommandsWithFileAndCollection
-
-{
-    private LinkedHashMap<Integer, Dragon> dragonsCollection;
-    private HashMap<String, String> helpCommands;
-    private LinkedList<String> history = new LinkedList<>();
-    private Asker asker = new Asker(new Scanner(System.in));
+/**
+ * Класс - для работы с коллекцией
+ *
+ * @author Калабухов Максим
+ */
+public class CollectionManager implements ICommandsWithCollection,ICommandsWithoutCollection,ICommandsWithFileAndCollection {
+    /**
+     * Свойство - Связная карта хранящая объекты класса dragon
+     */
+    private final LinkedHashMap<Integer, Dragon> dragonsCollection;
+    /**
+     * Свойство - Карта, хранящая описание всех команд
+     */
+    private final HashMap<String, String> helpCommands;
+    /**
+     * Свойство - Связный список, хранящий историю
+     */
+    private final LinkedList<String> history = new LinkedList<>();
+    /**
+     * Свойство - Спрашивает свойства объекта Dragon
+     */
+    private final Asker asker = new Asker(new Scanner(System.in));
+    /**
+     * Свойство - ID объектов
+     */
     private static int idCounter;
-    private Date date = new Date();
+    /**
+     * Свойство - Дата инициализации коллекции
+     */
+    private final Date date = new Date();
 
 
-
-
+    /**
+     * Конструктор без параметров
+     *
+     * @throws IOException the io exception
+     */
     public CollectionManager() throws IOException {
         dragonsCollection = JsonProcessing.readFile();
         helpCommands = new HashMap<>();
@@ -43,13 +65,22 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
         idCounter = JsonProcessing.readFile().size();
     }
 
+    /**
+     * Method - get next ID
+     *
+     * @return the integer
+     */
     public static Integer getRandomID(){
         return idCounter++;
     }
+
+    /**
+     * Method - outputs collection
+     */
     @Override
     public void showCommand() {
         System.out.println("Date collection: " + date);
-        List<Dragon> needSort = new ArrayList<Dragon>(dragonsCollection.values());
+        List<Dragon> needSort = new ArrayList<>(dragonsCollection.values());
         Collections.sort(needSort);
 
         for (Dragon i : needSort) {
@@ -58,14 +89,15 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
 
         if (history.size() == 16) {
             history.removeLast();
-            history.addFirst("show");
         }
-        else {
-            history.addFirst("show");
-        }
+        history.addFirst("show");
         System.out.println("------------------------");
 
     }
+
+    /**
+     * Method - outputs information about commands
+     */
     @Override
     public void helpCommand() {
         for (Map.Entry<String, String> entry : helpCommands.entrySet()) {
@@ -73,13 +105,16 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
         }
         if (history.size() == 16) {
             history.removeLast();
-            history.addFirst("help");
         }
-        else {
-            history.addFirst("help");
-        }
+        history.addFirst("help");
         System.out.println("------------------------");
     }
+
+    /**
+     * Метод - добавляет элемент в коллекцию по ключу
+     *
+     * @param key Integer ключ
+     */
     @Override
     public void insertNullCommand(Integer key){
         try {
@@ -92,27 +127,31 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
         }
         if (history.size() == 16) {
             history.removeLast();
-            history.addFirst("insert null");
         }
-        else {
-            history.addFirst("insert null");
-        }
+        history.addFirst("insert null");
 
 
     }
+
+    /**
+     * Метод - Выводит информацию о коллекции
+     */
     @Override
     public void infoCommand(){
         System.out.println("Count of element in collection := " + dragonsCollection.size());
         if (history.size() == 16) {
             history.removeLast();
-            history.addFirst("info");
         }
-        else {
-            history.addFirst("info");
-        }
+        history.addFirst("info");
         System.out.println("------------------------");
 
     }
+
+    /**
+     * Метод - Обновляет элемент по полю id
+     *
+     * @param id Integer
+     */
     @Override
     public void updateIDCommand(Integer id) { // ** need Exception
         for (Map.Entry<Integer, Dragon> entry : dragonsCollection.entrySet()) {
@@ -133,30 +172,38 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
         System.out.println("------------------------");
 
     }
+
+    /**
+     * Метод - удаляет элемент из коллекции по заданному ключу
+     *
+     * @param key Integer ключ
+     */
     @Override
     public void removeKeyCommand(Integer key){
         dragonsCollection.remove(key);
         if (history.size() == 16) {
             history.removeLast();
-            history.addFirst("remove_key");
         }
-        else {
-            history.addFirst("remove_key");
-        }
+        history.addFirst("remove_key");
         System.out.println("------------------------");
     }
+
+    /**
+     * Метод - Очищает коллекцию
+     */
     @Override
     public void clearCommand(){
         dragonsCollection.clear();
         if (history.size() == 16) {
             history.removeLast();
-            history.addFirst("clear");
         }
-        else {
-            history.addFirst("clear");
-        }
+        history.addFirst("clear");
         System.out.println("------------------------");
     }
+
+    /**
+     * Метод - выводит последние 5 команд
+     */
     @Override
     public void historyCommand(){
         int i = 0;
@@ -167,6 +214,12 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
         }
         System.out.println("------------------------");
     }
+
+    /**
+     * Метод - удаляет все элементы, превышающие данный ключ
+     *
+     * @param key Integer
+     */
     @Override
     public void removeGreaterKeyCommand(Integer key){
         Iterator<Map.Entry<Integer,Dragon>> i = dragonsCollection.entrySet().iterator();
@@ -178,16 +231,28 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
         }
         System.out.println("------------------------");
     }
+
+    /**
+     * Метод - Выводит все элементы коллекции с заданным в параметре цветом
+     *
+     * @param color Color цвет дракона
+     */
     @Override
     public void filteredByColorCommand(Color color){
         for (Map.Entry<Integer, Dragon> entry : dragonsCollection.entrySet()) {
             if (entry.getValue().getColor().equals(color)) {
-                System.out.println(entry.toString());
+                System.out.println(entry);
 
             }
         }
         System.out.println("------------------------");
     }
+
+    /**
+     * Метод - удаляет все элементы коллекции, ключ которых меньше заданного
+     *
+     * @param key Integer
+     */
     @Override
     public void removeLowerKeyCommand(Integer key) {
         Iterator<Map.Entry<Integer,Dragon>> i = dragonsCollection.entrySet().iterator();
@@ -200,6 +265,10 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
         System.out.println("------------------------");
 
     }
+
+    /**
+     * Метод - выводит элемент, который добавлен позже всех
+     */
     @Override
     public void maxByCreationDateCommand() {
         long maxdatemls = 0;
@@ -213,29 +282,42 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
         System.out.println(dragonsCollection.get(key));
         System.out.println("------------------------");
     }
+
+    /**
+     * Метод - выводит элементы коллекции в порядке возрастания
+     */
     @Override
     public void printAscendingCommand() {
-        Map<Integer, Dragon> treeMap = new TreeMap<Integer, Dragon>(dragonsCollection);
+        Map<Integer, Dragon> treeMap = new TreeMap<>(dragonsCollection);
         for (Map.Entry<Integer, Dragon> entry : treeMap.entrySet()) {
             System.out.println(entry);
         }
     }
 
+    /**
+     * Метод - сохраняет коллекцию в файл
+     */
     @Override
     public void saveCommand()  {
         JsonProcessing json = new JsonProcessing();
         try {
             json.saveCollection(dragonsCollection);
         } catch (IOException ex) {
-            ex.getMessage();
+            System.out.println(ex.getMessage());
         }
     }
+
+    /**
+     * Метод - запускает выполнение файла с заданным именем
+     *
+     * @param file_name String имя_файла
+     */
     @Override
     public void executeScriptCommand(String file_name) {
         String command;
         String[] finalCommand;
         try{
-            System.out.println( file_name + "reading has started");
+            System.out.println(file_name + " reading has started");
             BufferedReader inputStreamReader = new BufferedReader(new InputStreamReader(new FileInputStream(file_name)));
             command = inputStreamReader.readLine();
             while (command != null) {
@@ -281,8 +363,14 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
                     case "exit":
                         System.out.println("Выход выполнен успешно");
                         break;
+                    case "save":
+                        saveCommand();
+                        break;
+                    case "as":
+                        printAscendingCommand();
+                        break;
                     default:
-                        System.out.println("Comannd not found. Enter \"help\". ");      // нужно сюда еще пару методов засунуть + эксепшен с реверсивным вызовом файла.
+                        System.out.println("Command not found. Enter \"help\". ");      //эксепшен с реверсивным вызовом файла.
 
             }
             command = inputStreamReader.readLine();

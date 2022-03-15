@@ -9,22 +9,32 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
+/**
+ * Класс для работы с файлами формата .json
+ */
 public class JsonProcessing {
+    /**
+     * Метод - сохраняет коллекцию в файл формата .json
+     * @param collection Map Коллекция, которую сохраняем
+     */
     public void saveCollection(Map collection) throws IOException {
         Gson json = new GsonBuilder().setPrettyPrinting().create();
         String gson = json.toJson(collection);
         FileOutputStream save = new FileOutputStream("JSON_FILE.json");
         save.write(gson.getBytes());
     }
+
+    /**
+     * Метод - преобразует файл формата .json в связную карту
+     * @return Связную карту
+     */
     static public LinkedHashMap<Integer,Dragon> readFile() throws IOException {
         Gson gson = new Gson();
         Type entityType = new TypeToken<LinkedHashMap<Integer, Dragon>>(){}.getType();
         FileReader read = new FileReader("/Users/batiskav03/IdeaProjects/lab5/JSON_FILE.json");
-        LinkedHashMap<Integer,Dragon> result = gson.fromJson(read , entityType);
-        return result;
+        return gson.fromJson(read , entityType);
     }
 }

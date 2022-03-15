@@ -1,7 +1,6 @@
 package tools;
 
 import data.Color;
-import data.Dragon;
 
 public interface ICommandsWithCollection {
     void insertNullCommand(Integer key);
