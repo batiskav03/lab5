@@ -1,0 +1,10 @@
+insert 1
+1
+2
+1
+15
+blue
+air
+good
+15
+15

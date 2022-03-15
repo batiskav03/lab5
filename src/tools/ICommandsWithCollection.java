@@ -1,15 +1,17 @@
 package tools;
 
-import data.Dragon;
+import data.Color;
 
 public interface ICommandsWithCollection {
-    void insertNullCommand(Dragon element);
-    void updateIDCommand(Dragon element);
-    void removeKeyNullCommand(int id);
+    void insertNullCommand(Integer key);
+    void updateIDCommand(Integer id);
+    void removeKeyCommand(Integer key);
     void clearCommand();
-    void removeGreaterKeyCommand();
-    void removeLowerKeyCommand();
+    void removeGreaterKeyCommand(Integer key);
+    void removeLowerKeyCommand(Integer key);
     void maxByCreationDateCommand();
-    void filterByColor();
-    void printAscending();
+    void filteredByColorCommand(Color color);
+    void printAscendingCommand();
+
+
 }
