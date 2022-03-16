@@ -1,6 +1,7 @@
 
 import tools.CollectionManager;
 import tools.CommandManager;
+import tools.JsonProcessing;
 
 import java.io.IOException;
 import java.util.logging.*;
@@ -11,17 +12,16 @@ import java.util.logging.*;
  */
 
 public class Run {
-    private static Logger log = Logger.getLogger(Run.class.getName());
     public static void main(String[] args) throws IOException {
-        Handler FileHandler = new FileHandler();
-        log.setUseParentHandlers(false);
-        log.addHandler(FileHandler);
-        log.info("Running");
+
+        Handler FileHandler = new FileHandler("log.log");
+        JsonProcessing.log.setUseParentHandlers(false);
+        JsonProcessing.log.addHandler(FileHandler);
+        JsonProcessing.log.info("Program is running.");
         CommandManager manage = new CommandManager(new CollectionManager());
-
-
-
         manage.interactiveMod();
+        JsonProcessing.log.info("Program successful complete.");
+
 
 
 

@@ -2,7 +2,7 @@ package tools;
 import java.lang.*;
 import data.*;
 import java.util.Scanner;
-import Exception.*;
+import exception.*;
 
 
 
@@ -37,6 +37,7 @@ public class Asker {
         }
         catch (ElementMustNotBeEmptyException e) {
             System.out.println(e.getMessage());
+            JsonProcessing.log.warning("ElementMustNotBeEmptyException");
             return askName();
         }
 
@@ -72,6 +73,7 @@ public class Asker {
         catch (NumberFormatException ex)
         {
             System.out.println("Invalid value");
+            JsonProcessing.log.warning("NumberFormatException");
             return askX();
 
         }
@@ -79,6 +81,7 @@ public class Asker {
         {
 
             System.out.println(ex.getMessage());
+            JsonProcessing.log.warning("ElementMustNotBeEmptyException");
             return askX();
 
         }
@@ -103,10 +106,12 @@ public class Asker {
         catch (NumberFormatException ex)
         {
             System.out.println("Invalid value");
+            JsonProcessing.log.warning("NumberFormatException");
             return askY();
         }
         catch (ElementMustNotBeEmptyException ex)
         {
+            JsonProcessing.log.warning("ElementMustNotBeEmptyException");
             System.out.println(ex.getMessage());
             return askY();
         }
@@ -131,14 +136,18 @@ public class Asker {
         } catch (NumberFormatException ex)
         {
             System.out.println("Invalid value");
+            JsonProcessing.log.warning("NumberFormatException");
             return askAge();
         }
         catch (ElementMustNotBeEmptyException ex)
         {
             System.out.println(ex.getMessage());
+            JsonProcessing.log.warning("ElementMustNotBeEmptyException");
             return askAge();
         } catch (InvalidElementValueException ex) {
             System.out.println("Age cant be negative");
+            JsonProcessing.log.warning("InvalidElementValueException");
+
             return askAge();
         }
 
@@ -161,10 +170,12 @@ public class Asker {
             color = Color.valueOf(str);
         } catch (IllegalArgumentException ex) {
             System.out.println("There is no such type");
+            JsonProcessing.log.warning("IllegalArgumentException");
             return askColor();
 
         } catch (ElementMustNotBeEmptyException ex) {
             System.out.println(ex.getMessage());
+            JsonProcessing.log.warning("ElementMustNotBeEmptyException");
             return askColor();
         }
 
@@ -187,10 +198,12 @@ public class Asker {
             dragonType = DragonType.valueOf(str);
         } catch (IllegalArgumentException ex) {
             System.out.println("There is no such type");
+            JsonProcessing.log.warning("IllegalArgumentException");
             return askDragonType();
 
         } catch (ElementMustNotBeEmptyException ex) {
             System.out.println(ex.getMessage());
+            JsonProcessing.log.warning("ElementMustNotBeEmptyException");
             return askDragonType();
         }
         return dragonType;
@@ -212,10 +225,12 @@ public class Asker {
             dragonCharacter = DragonCharacter.valueOf(str);
         } catch (IllegalArgumentException ex) {
             System.out.println("There is no such type");
+            JsonProcessing.log.warning("IllegalArgumentException");
             return askDragonCharacter();
 
         } catch (ElementMustNotBeEmptyException ex) {
             System.out.println(ex.getMessage());
+            JsonProcessing.log.warning("ElementMustNotBeEmptyException");
             return askDragonCharacter();
 
         }
@@ -249,9 +264,11 @@ public class Asker {
             tooth = Float.parseFloat(strTooth);
         } catch (ElementMustNotBeEmptyException ex) {
             System.out.println(ex.getMessage());
+            JsonProcessing.log.warning("ElementMustNotBeEmptyException");
             return askToothCount();
         } catch (IllegalArgumentException ex) {
             System.out.println("There is no such type");
+            JsonProcessing.log.warning("IllegalArgumentException");
             return askToothCount();
         }
         return tooth;
@@ -272,9 +289,11 @@ public class Asker {
             eyes = Long.parseLong(strEyes);
         } catch (ElementMustNotBeEmptyException ex) {
             System.out.println(ex.getMessage());
+            JsonProcessing.log.warning("ElementMustNotBeEmptyException");
             return askEyesCount();
         } catch (IllegalArgumentException ex) {
             System.out.println("There is no such type");
+            JsonProcessing.log.warning("IllegalArgumentException");
             return askEyesCount();
         }
         return eyes;

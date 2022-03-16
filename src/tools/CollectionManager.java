@@ -122,8 +122,10 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
             dragonsCollection.put(key, a);
         } catch (NoSuchElementException e) {
             System.out.println("Collection is empty");
+            JsonProcessing.log.warning("NoSuchElementException!");
         } catch (NumberFormatException e) {
             System.out.println("Invalid value");
+            JsonProcessing.log.warning("NumberFormatExeption!");
         }
         if (history.size() == 16) {
             history.removeLast();
@@ -304,6 +306,7 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
             json.saveCollection(dragonsCollection);
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
+            JsonProcessing.log.warning("IOException!");
         }
     }
 
@@ -379,8 +382,10 @@ public class CollectionManager implements ICommandsWithCollection,ICommandsWitho
 
     } catch (FileNotFoundException e) {
         System.out.println("File doesn't exist");
+        JsonProcessing.log.warning("FileNotFoundException");
     } catch (IOException e) {
             System.out.println("Reading is not possible");
+            JsonProcessing.log.warning("IOException!");
         }
     }
 

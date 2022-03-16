@@ -36,7 +36,6 @@ public class CommandManager {
         Scanner scansmthg = new Scanner(System.in);
         while (!userCommand.equals("exit")) {
             System.out.print("Enter the command:");
-
             userCommand = scansmthg.nextLine();
             finalCommand = userCommand.trim().split(" ",2);
             commandManager();
@@ -102,6 +101,7 @@ public class CommandManager {
                     System.out.println("Comannd not found. Enter \"help\". ");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
+            JsonProcessing.log.warning("ArrayIndexOutOfBoundsException");
             System.out.println("Need a numeric argument!");
 
         }

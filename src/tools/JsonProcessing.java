@@ -11,16 +11,26 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * Класс для работы с файлами формата .json
  */
 public class JsonProcessing {
     /**
+     * Логи
+     */
+    public static Logger log = Logger.getGlobal();
+    /**
+    / Свойство - переменная окружения
+    */
+    static String env = System.getenv("env");
+    /**
      * Метод - сохраняет коллекцию в файл формата .json
      * @param collection Map Коллекция, которую сохраняем
      */
     public void saveCollection(Map collection) throws IOException {
+
         Gson json = new GsonBuilder().setPrettyPrinting().create();
         String gson = json.toJson(collection);
         FileOutputStream save = new FileOutputStream("JSON_FILE.json");
@@ -34,7 +44,7 @@ public class JsonProcessing {
     static public LinkedHashMap<Integer,Dragon> readFile() throws IOException {
         Gson gson = new Gson();
         Type entityType = new TypeToken<LinkedHashMap<Integer, Dragon>>(){}.getType();
-        FileReader read = new FileReader("C:\\Users\\pogchamp\\IdeaProjects\\lab4\\JSON_FILE.json");
+        FileReader read = new FileReader("JSON_FILE.json");
         return gson.fromJson(read , entityType);
     }
 }
